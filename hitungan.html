@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasbih & Tracker - Cahaya Iman</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>...</header>
+
+  <main>
+    <section class="fade-in">
+      <h1 style="text-align: center; color: var(--primary-color); margin-bottom: 2rem;">Tasbih Digital & Pantau Ibadah</h1>
+      
+      <div class="grid-container">
+        <div class="tracker-container card">
+          <h2>Tasbih Digital</h2>
+          <p style="margin-bottom: 1rem; opacity: 0.8;">"Subhanallah, Alhamdulillah, Allahu Akbar"</p>
+          <button id="tasbihBtn" class="btn-tasbih" aria-label="Tekan untuk menambah hitungan tasbih">
+            <span id="tasbihCount">0</span>
+          </button>
+          <div style="margin-top: 1rem;">
+            <button id="resetTasbih" style="padding: 0.5rem 1rem; border-radius: 4px; border: 1px solid #dc3545; background: none; color: #dc3545; cursor: pointer;">Reset Hitungan</button>
+          </div>
+        </div>
+
+        <div class="tracker-container card" style="text-align: left;">
+          <h2>Jurnal Shalat Harian</h2>
+          <p>Tandai shalat yang telah Anda kerjakan hari ini (disimpan otomatis):</p>
+          <ul style="list-style: none; margin-top: 1rem; padding: 0; display: flex; flex-direction: column; gap: 0.8rem;">
+            <li style="display: flex; align-items: center; gap: 0.5rem;">
+              <input type="checkbox" id="subuh" aria-label="Shalat Subuh">
+              <label for="subuh">Subuh</label>
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.5rem;">
+              <input type="checkbox" id="dzuhur" aria-label="Shalat Dzuhur">
+              <label for="dzuhur">Dzuhur</label>
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.5rem;">
+              <input type="checkbox" id="ashar" aria-label="Shalat Ashar">
+              <label for="ashar">Ashar</label>
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.5rem;">
+              <input type="checkbox" id="maghrib" aria-label="Shalat Maghrib">
+              <label for="maghrib">Maghrib</label>
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.5rem;">
+              <input type="checkbox" id="isya" aria-label="Shalat Isya">
+              <label for="isya">Isya</label>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>...</footer>
+  <script src="script.js"></script>
+</body>
+</html>

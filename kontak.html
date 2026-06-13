@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontak Kami - Cahaya Iman</title>
+  <!-- Hapus link style.css jika bermasalah, gunakan inline sepenuhnya -->
+  <style>
+    /* Reset dasar */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    /* Container utama */
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .header h1 {
+      color: #2c3e50;
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    
+    .header p {
+      color: #7f8c8d;
+      font-size: 1rem;
+    }
+    
+    /* Form styling */
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #2c3e50;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: #fafafa;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      background: white;
+      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+    
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    
+    /* Tombol submit */
+    .btn-submit {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+    
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+    
+    .btn-submit:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    /* Pesan status */
+    .message {
+      display: none;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 500;
+    }
+    
+    .success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    
+    /* Info kontak */
+    .contact-info {
+      margin-top: 30px;
+      padding-top: 30px;
+      border-top: 2px solid #eee;
+      text-align: center;
+    }
+    
+    .contact-info h3 {
+      color: #2c3e50;
+      margin-bottom: 15px;
+    }
+    
+    .contact-info a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+      word-break: break-all;
+    }
+    
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Loading spinner */
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+      .container {
+        padding: 25px 20px;
+      }
+      .header h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h1>📧 Hubungi Kami</h1>
+      <p>Ada pertanyaan atau saran? Kirim pesan langsung ke email kami!</p>
+    </div>
+
+    <div id="successMsg" class="message success">
+      ✅ Pesan berhasil terkirim! Terima kasih.
+    </div>
+    <div id="errorMsg" class="message error">
+      ❌ Gagal mengirim. Silakan coba lagi.
+    </div>
+
+    <!-- Form menggunakan mailto sebagai fallback -->
+    <form id="contactForm" onsubmit="handleSubmit(event)">
+      <div class="form-group">
+        <label for="nama">Nama Lengkap *</label>
+        <input type="text" id="nama" name="nama" required placeholder="Masukkan nama Anda">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Anda *</label>
+        <input type="email" id="email" name="email" required placeholder="contoh@gmail.com">
+      </div>
+
+      <div class="form-group">
+        <label for="subjek">Subjek *</label>
+        <input type="text" id="subjek" name="subjek" required placeholder="Tentang apa pesan ini?">
+      </div>
+
+      <div class="form-group">
+        <label for="pesan">Pesan Anda *</label>
+        <textarea id="pesan" name="pesan" required placeholder="Tuliskan pesan Anda di sini..."></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn">
+        Kirim Pesan
+      </button>
+    </form>
+
+    <div class="contact-info">
+      <h3>Atau Email Langsung</h3>
+      <p>
+        <a href="mailto:mohanggakurniawanf161025@gmail.com?subject=Kontak dari Cahaya Iman">
+          ✉️ mohanggakurniawanf161025@gmail.com
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    async function handleSubmit(e) {
+      e.preventDefault();
+      
+      const form = e.target;
+      const submitBtn = document.getElementById('submitBtn');
+      const successMsg = document.getElementById('successMsg');
+      const errorMsg = document.getElementById('errorMsg');
+      
+      // Sembunyikan pesan sebelumnya
+      successMsg.style.display = 'none';
+      errorMsg.style.display = 'none';
+      
+      // Validasi
+      if (!form.nama.value.trim() || !form.email.value.trim() || 
+          !form.subjek.value.trim() || !form.pesan.value.trim()) {
+        errorMsg.textContent = '❌ Harap isi semua bidang!';
+        errorMsg.style.display = 'block';
+        return;
+      }
+      
+      // Loading state
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Mengirim... <span class="spinner"></span>';
+      
+      // Siapkan data
+      const formData = new FormData(form);
+      const data = {
+        nama: formData.get('nama'),
+        email: formData.get('email'),
+        subjek: formData.get('subjek'),
+        pesan: formData.get('pesan')
+      };
+      
+      try {
+        // Coba kirim via Formspree (ganti YOUR_FORM_ID)
+        const response = await fetch('https://formspree.io/f/xykablvq', {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }
+        });
+        
+        if (response.ok) {
+          successMsg.style.display = 'block';
+          form.reset();
+        } else {
+          throw new Error('Formspree failed');
+        }
+      } catch (err) {
+        // Fallback: buka Gmail dengan data terisi
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=mohanggakurniawanf161025@gmail.com&su=${encodeURIComponent(data.subjek)}&body=${encodeURIComponent(`Nama: ${data.nama}\nEmail: ${data.email}\n\nPesan:\n${data.pesan}`)}`;
+        
+        window.open(gmailUrl, '_blank');
+        
+        successMsg.innerHTML = '✅ Membuka Gmail untuk mengirim pesan...';
+        successMsg.style.display = 'block';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Kirim Pesan';
+      }
+    }
+  </script>
+
+</body>
+</html>

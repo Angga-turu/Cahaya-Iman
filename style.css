@@ -1,0 +1,536 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  /* Skema Warna Utama (Light Mode) - Lulus Kontras WCAG AA */
+  --bg-color: #F8F9FA;
+  --text-color: #1A1A1A;
+  --primary-color: #0E3B2E; /* Hijau Tua Elegan */
+  --secondary-color: #B8860B; /* Emas Gelap */
+  --card-bg: #FFFFFF;
+  --nav-bg: #0E3B2E;
+  --nav-text: #FFFFFF;
+  --footer-bg: #0A261D;
+  --focus-outline: #B8860B;
+}
+
+[data-theme="dark"] {
+  /* Skema Warna Mode Gelap */
+  --bg-color: #121212;
+  --text-color: #E0E0E0;
+  --primary-color: #1E5C49;
+  --secondary-color: #D4AF37;
+  --card-bg: #1E1E1E;
+  --nav-bg: #111111;
+  --footer-bg: #0A0A0A;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Times New Roman', Times, serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 16px; /* Bisa diubah via JS */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tipografi Khusus Arab */
+.arabic-text {
+  font-family: 'Amiri', 'Traditional Arabic', 'Times New Roman', serif;
+  font-size: 2rem;
+  line-height: 2.2;
+  text-align: right;
+  direction: rtl;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Aksesibilitas: Navigasi Keyboard */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--focus-outline);
+  outline-offset: 2px;
+}
+
+/* Navigasi Sticky */
+header {
+  background-color: var(--nav-bg);
+  color: var(--nav-text);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--nav-text);
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+nav a {
+  color: var(--nav-text);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+nav a:hover,
+nav a:focus-visible {
+  color: var(--secondary-color);
+}
+
+/* Tombol Utilitas (Dark Mode, Teks, Search) */
+.nav-utils {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-utils button {
+  background: none;
+  border: 1px solid var(--secondary-color);
+  color: var(--secondary-color);
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.nav-utils button:hover,
+.nav-utils button:focus-visible {
+  background: var(--secondary-color);
+  color: var(--nav-bg);
+}
+
+/* Layout Utama */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 5%;
+  width: 100%;
+  flex: 1;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 4rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.hero h1 {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  margin-bottom: 1rem;
+  color: var(--secondary-color);
+}
+
+.hero p {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Sistem Grid untuk Kartu Konten */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.card h2,
+.card h3 {
+  color: var(--primary-color);
+  margin-bottom: 0.75rem;
+}
+
+.card p {
+  margin-bottom: 1rem;
+}
+
+/* Animasi Scroll */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* UI Interaktif (Tasbih & Shalat) */
+.tracker-container {
+  text-align: center;
+  padding: 2rem;
+  background: var(--card-bg);
+  border-radius: 10px;
+  margin-bottom: 2rem;
+}
+
+.btn-tasbih {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 2rem;
+  font-size: 2rem;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+  transition: transform 0.1s, background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-tasbih:hover {
+  background-color: var(--secondary-color);
+}
+
+.btn-tasbih:active {
+  transform: scale(0.95);
+}
+
+/* Modal Pencarian */
+#searchModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.search-content {
+  background: var(--card-bg);
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.search-content input {
+  width: 100%;
+  padding: 1rem;
+  font-family: inherit;
+  font-size: 1.1rem;
+  border: 2px solid var(--primary-color);
+  border-radius: 4px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+.search-content input:focus-visible {
+  outline: none;
+  border-color: var(--secondary-color);
+}
+
+#closeSearch {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-color);
+  padding: 0.5rem;
+  line-height: 1;
+}
+
+#searchResults {
+  list-style: none;
+  margin-top: 1rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+#searchResults li {
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#searchResults li:last-child {
+  border-bottom: none;
+}
+
+#searchResults a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+#searchResults a:hover {
+  text-decoration: underline;
+}
+
+/* Footer Konsisten */
+footer {
+  background-color: var(--footer-bg);
+  color: white;
+  text-align: center;
+  padding: 2rem 5%;
+}
+
+footer a {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer .disclaimer {
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  opacity: 0.8;
+}
+
+/* Form Styling */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 1rem;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus-visible,
+.form-group textarea:focus-visible {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.btn-submit {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover,
+.btn-submit:focus-visible {
+  background-color: var(--primary-color);
+}
+
+/* Checkbox Styling */
+input[type="checkbox"] {
+  width: 1.2rem;
+  height: 1.2rem;
+  cursor: pointer;
+  accent-color: var(--primary-color);
+}
+
+/* Social Links */
+.social-links a {
+  display: inline-block;
+  margin: 0 10px;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.social-links a:hover {
+  opacity: 0.7;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .nav-utils {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero {
+    padding: 2.5rem 1rem;
+  }
+
+  .arabic-text {
+    font-size: 1.5rem;
+    line-height: 2;
+  }
+
+  .btn-tasbih {
+    width: 120px;
+    height: 120px;
+    font-size: 1.5rem;
+  }
+
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+
+  main {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .arabic-text {
+    font-size: 1.25rem;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  .tracker-container {
+    padding: 1.5rem 1rem;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  :root {
+    --primary-color: #000000;
+    --secondary-color: #000000;
+    --text-color: #000000;
+    --bg-color: #FFFFFF;
+  }
+
+  [data-theme="dark"] {
+    --primary-color: #FFFFFF;
+    --secondary-color: #FFFFFF;
+    --text-color: #FFFFFF;
+    --bg-color: #000000;
+  }
+}
+
+/* Print Styles */
+@media print {
+  header,
+  footer,
+  .nav-utils,
+  #searchModal,
+  .btn-tasbih,
+  .btn-submit {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  .card {
+    box-shadow: none;
+    border: 1px solid #ccc;
+    break-inside: avoid;
+  }
+
+  .arabic-text {
+    color: black;
+  }
+}
